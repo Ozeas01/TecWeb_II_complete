@@ -4,7 +4,7 @@ import {
   Pause, ChevronLeft, ChevronRight, HelpCircle, Map, Briefcase, 
   FileText, MessageSquare, PhoneCall, Github, Linkedin, Globe 
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 interface HomePageProps {
   onGameSelect: (game: string) => void;
@@ -13,10 +13,9 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [isNavHovered, setIsNavHovered] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoplay, setIsAutoplay] = useState(true);
-  const autoplayTimer = useRef<NodeJS.Timeout | null>(null);
+  const autoplayTimer = useRef<any>(null);
 
   const slides = [
     {
@@ -161,7 +160,7 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
     setIsAutoplay((prev) => !prev);
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -169,12 +168,12 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: 'easeOut' as const },
     },
   };
 
