@@ -16,21 +16,21 @@ Uma plataforma de jogos educativos moderna e interativa para aprender HTML, CSS 
 ### 1. 🏗️ Desafio HTML
 - **Tipo**: Drag & Drop
 - **Objetivo**: Associar tags HTML às suas categorias corretas
-- **Dificuldade**: Iniciante
+- **Dificuldade**: Iniciante (3 níveis progressivos)
 - **Tempo**: 10-15 minutos
 - **Conceitos**: Estrutura HTML, semântica, elementos básicos
 
 ### 2. 🎨 CSS Selector Master
-- **Tipo**: Seleção de elementos
-- **Objetivo**: Identificar elementos HTML usando seletores CSS
-- **Dificuldade**: Intermediário
+- **Tipo**: Digitação de seletores
+- **Objetivo**: Escrever o seletor CSS correto para o elemento destacado
+- **Dificuldade**: Fácil / Médio / Difícil (selecionável)
 - **Tempo**: 15-20 minutos
-- **Conceitos**: Seletores CSS, especificidade, pseudo-elementos
+- **Conceitos**: Seletores CSS, combinadores, pseudo-classes
 
 ### 3. ⚡ JavaScript Logic Puzzle
-- **Tipo**: Quiz interativo
-- **Objetivo**: Completar códigos e resolver desafios de lógica
-- **Dificuldade**: Intermediário
+- **Tipo**: Quiz de múltipla escolha
+- **Objetivo**: Selecionar a resposta correta sobre conceitos JavaScript
+- **Dificuldade**: Fácil / Médio / Difícil (selecionável)
 - **Tempo**: 20-25 minutos
 - **Conceitos**: Lógica JavaScript, sintaxe, resolução de problemas
 
@@ -109,7 +109,8 @@ A aplicação foi desenvolvida com abordagem mobile-first e é totalmente respon
 - Feedback visual por performance
 
 ### ✅ Gamificação
-- Níveis progressivos de dificuldade (3 níveis no HTML)
+- Níveis progressivos de dificuldade no HTML (3 níveis com avanço automático)
+- Seleção de dificuldade (Fácil/Médio/Difícil) no CSS e JavaScript
 - Conquistas e troféus
 - Animações de sucesso/erro
 - Progresso visual em tempo real
@@ -126,7 +127,7 @@ A aplicação foi desenvolvida com abordagem mobile-first e é totalmente respon
 - Navegação por teclado
 - Contraste adequado (WCAG 2.1)
 - Textos descritivos e alt texts
-- Feedback visual e auditivo
+- Feedback visual com animações
 - Suporte a screen readers
 
 ### ✅ Drag & Drop Avançado
@@ -137,7 +138,6 @@ A aplicação foi desenvolvida com abordagem mobile-first e é totalmente respon
 - Embaralhamento inteligente de tags
 
 ### ✅ Performance
-- Lazy loading de componentes
 - Otimização de re-renders
 - CSS vanilla para animações críticas
 - Vite para build rápido
@@ -161,8 +161,10 @@ src/
 ├── types/               # Tipos TypeScript
 │   └── index.ts        # Interfaces e types globais
 ├── App.tsx             # Componente principal com routing
+├── App.css             # Estilos do componente App
 ├── index.css           # Estilos globais + Tailwind customizado
-└── main.tsx           # Entry point com React 19
+├── main.tsx           # Entry point com React 19
+└── vite-env.d.ts      # Tipos do Vite
 ```
 
 ## 🚀 Melhorias Recentes
@@ -191,26 +193,26 @@ src/
 1. Arraste as tags HTML da coluna esquerda
 2. Solte-as nas categorias corretas à direita
 3. Receba feedback instantâneo
-4. Complete todos os níveis
+4. Complete todos os 3 níveis
 
 ### CSS Selector Master
-1. Analise o elemento HTML destacado
-2. Selecione o seletor CSS correto
-3. Avance pelos níveis de dificuldade
-4. Domine os seletores complexos
+1. Selecione a dificuldade desejada (Fácil, Médio ou Difícil)
+2. Analise o elemento HTML destacado
+3. Digite o seletor CSS correto no campo de entrada
+4. Avance pelas questões e domine os seletores
 
 ### JavaScript Logic Puzzle
-1. Leia o código JavaScript
-2. Escolha a opção correta
-3. Veja a explicação detalhada
-4. Aprenda com os erros
+1. Selecione a dificuldade desejada (Fácil, Médio ou Difícil)
+2. Leia a questão e o código JavaScript
+3. Escolha a opção correta entre as alternativas
+4. Veja a explicação detalhada de cada resposta
 
 ## 🏆 Sistema de Pontuação
 
-- **Excellent**: 90-100% (🎉)
-- **Very Good**: 80-89% (👏)
-- **Good**: 60-79% (👍)
-- **Keep Practicing**: 0-59% (💪)
+- **Excelente!**: 90-100% (🎉)
+- **Muito bom!**: 80-89% (👏)
+- **Bom trabalho!**: 60-79% (👍)
+- **Continue praticando!**: 0-59% (💪)
 
 ## 🌐 Compatibilidade
 
@@ -227,13 +229,6 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 Contribuições são bem-vindas! Por favor, leia o arquivo `CONTRIBUTING.md` para mais informações.
 
-## 📞 Contato
-
-Para dúvidas ou sugestões, entre em contato através de:
-- Email: carmo@weblearninggames.com
-- GitHub: [@carmo-dev](https://github.com/carmo-dev)
-- LinkedIn: [Carlos Carmo](https://linkedin.com/in/carlos-carmo-dev)
-
 ---
 
 **Desenvolvido com ❤️ para tornar o aprendizado de desenvolvimento web divertido e eficaz!**
@@ -241,11 +236,12 @@ Para dúvidas ou sugestões, entre em contato através de:
 ## 🎯 Status do Projeto
 
 - ✅ **HTML Drag & Drop Game** - Totalmente funcional com 3 níveis
-- ✅ **CSS Selector Master** - Implementado com níveis progressivos  
-- ✅ **JavaScript Logic Puzzle** - Quiz interativo completo
+- ✅ **CSS Selector Master** - Implementado com 3 dificuldades selecionáveis
+- ✅ **JavaScript Logic Puzzle** - Quiz interativo com múltipla escolha
 - ✅ **Sistema de Pontuação** - Funcionando perfeitamente
 - ✅ **Interface Responsiva** - Testado em múltiplos dispositivos
 - ✅ **Animações e Transições** - Todas implementadas
 - ✅ **Feedback Visual** - Sistema completo de feedback
 - ✅ **Embaralhamento Inteligente** - Tags aleatórias por nível
 - ✅ **Layout Otimizado** - Sem necessidade de scroll excessivo
+
