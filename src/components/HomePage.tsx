@@ -4,7 +4,7 @@ import {
   Pause, ChevronLeft, ChevronRight, HelpCircle, Map, Briefcase, 
   FileText, MessageSquare, PhoneCall, Github, Linkedin, Globe 
 } from 'lucide-react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 interface HomePageProps {
   onGameSelect: (game: string) => void;
