@@ -2,9 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Code2, Palette, Zap, ArrowRight, Brain, Bell, Laptop, X, Play, 
   Pause, ChevronLeft, ChevronRight, HelpCircle, Map, Briefcase, 
-  FileText, MessageSquare, PhoneCall, Github, Linkedin, Globe 
+  FileText, MessageSquare, PhoneCall, Github, Linkedin, Globe, User,
+  GraduationCap, BookOpen, School, Info, Sparkles, Compass
 } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import AuthModal from './AuthModal';
+import type { UserData } from '../types';
 
 interface HomePageProps {
   onGameSelect: (game: string) => void;
@@ -16,6 +19,11 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoplay, setIsAutoplay] = useState(true);
   const autoplayTimer = useRef<any>(null);
+  
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [user, setUser] = useState<UserData | null>(null);
+  const isLoggedIn = !!user;
 
   const slides = [
     {
@@ -23,33 +31,33 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
       subtitle: "A Programação Abre Portas",
       description: "Escrever código dá a você o poder de transformar qualquer ideia em realidade, construindo softwares e ferramentas incríveis do absoluto zero.",
       image: "/slide1.png",
-      gradient: "from-orange-600 to-rose-600",
-      glowColor: "rgba(249, 115, 22, 0.35)",
-      bgAccent: "bg-orange-500/5",
-      borderAccent: "border-orange-500/10",
-      btnClass: "bg-white text-orange-600 hover:bg-orange-50 hover:scale-105"
+      gradient: "from-blue-600 via-indigo-600 to-blue-700",
+      glowColor: "rgba(37, 99, 235, 0.35)",
+      bgAccent: "bg-blue-500/5",
+      borderAccent: "border-blue-500/10",
+      btnClass: "bg-white text-blue-600 hover:bg-blue-50 hover:scale-105"
     },
     {
       title: "Desafie sua Mente Diariamente",
       subtitle: "Desenvolva sua Lógica",
       description: "Aprender a programar aprimora sua capacidade de resolver problemas complexos e estruturar raciocínios com precisão cirúrgica.",
       image: "/slide2.png",
-      gradient: "from-blue-600 via-cyan-600 to-blue-700",
-      glowColor: "rgba(59, 130, 246, 0.35)",
-      bgAccent: "bg-blue-500/5",
-      borderAccent: "border-blue-500/10",
-      btnClass: "bg-white text-blue-600 hover:bg-blue-50 hover:scale-105"
+      gradient: "from-blue-500 via-cyan-500 to-teal-500",
+      glowColor: "rgba(6, 182, 212, 0.35)",
+      bgAccent: "bg-cyan-500/5",
+      borderAccent: "border-cyan-500/10",
+      btnClass: "bg-white text-cyan-600 hover:bg-cyan-50 hover:scale-105"
     },
     {
       title: "Domine a Web Moderna",
       subtitle: "Aprenda HTML, CSS e JavaScript",
       description: "Esteja à frente no mercado digital dominando a tríade essencial da web e criando interfaces incríveis, limpas e interativas.",
       image: "/slide3.png",
-      gradient: "from-yellow-600 via-amber-600 to-orange-600",
-      glowColor: "rgba(234, 179, 8, 0.35)",
-      bgAccent: "bg-yellow-500/5",
-      borderAccent: "border-yellow-500/10",
-      btnClass: "bg-white text-amber-700 hover:bg-amber-50 hover:scale-105"
+      gradient: "from-indigo-600 via-blue-600 to-indigo-700",
+      glowColor: "rgba(99, 102, 241, 0.35)",
+      bgAccent: "bg-indigo-500/5",
+      borderAccent: "border-indigo-500/10",
+      btnClass: "bg-white text-indigo-600 hover:bg-indigo-50 hover:scale-105"
     }
   ];
 
@@ -182,7 +190,7 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
       
       {/* Soft background glow circles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-[10%] w-[500px] h-[500px] bg-orange-400/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-20 left-[10%] w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-20 left-[30%] w-[450px] h-[450px] bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
       </div>
 
@@ -191,16 +199,16 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
         <div className="flex items-center gap-4 sm:gap-6">
           {/* Main Pill Menu */}
           <div className="bg-slate-100/90 border border-slate-200/50 backdrop-blur-sm rounded-full py-1.5 pl-4 pr-6 flex items-center gap-5 sm:gap-8 shadow-sm">
-            {/* Logo/Slogan (Orange themed brand) */}
+            {/* Logo/Slogan (Blue themed brand) */}
             <motion.div 
               whileHover={{ scale: 1.05 }}
               className="flex items-center gap-1.5 cursor-pointer"
             >
-              <div className="bg-gradient-to-r from-orange-500 to-rose-500 text-white p-1.5 rounded-full shadow-sm">
+              <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-1.5 rounded-full shadow-sm">
                 <Laptop className="h-4 w-4" />
               </div>
               <span className="font-extrabold text-slate-855 tracking-tight text-sm hidden sm:inline">
-                Web<span className="text-orange-500">Learning</span>
+                Web<span className="text-blue-600">Learning</span>
               </span>
             </motion.div>
             
@@ -210,48 +218,85 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
             {/* Navigation links inside pill */}
             <div className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-slate-600 relative">
               {[
-                { name: 'Alunos', href: '#students' },
-                { name: 'Professores', href: '#teachers' },
-                { name: 'Mapas mentais', href: '#mindmaps' },
-                { name: 'Informações', href: '#info' }
-              ].map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onMouseEnter={() => setHoveredLink(link.name)}
-                  onMouseLeave={() => setHoveredLink(null)}
-                  className="relative px-3.5 py-1.5 transition-colors duration-200 hover:text-orange-500 z-10"
-                >
-                  {hoveredLink === link.name && (
-                    <motion.span
-                      layoutId="nav-hover-pill"
-                      className="absolute inset-0 bg-orange-500/10 rounded-full -z-10"
-                      transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                    />
-                  )}
-                  {link.name}
-                </a>
-              ))}
+                { name: 'Alunos', href: '#students', hasDropdown: false, icon: GraduationCap },
+                { name: 'Professores', href: '#teachers', hasDropdown: false, icon: BookOpen },
+                { name: 'UFC Sobral', href: '#ufc', hasDropdown: true, icon: School },
+              ].map((link) => {
+                const IconComponent = link.icon;
+                return (
+                  <div 
+                    key={link.name} 
+                    className="relative group"
+                    onMouseEnter={() => setHoveredLink(link.name)}
+                    onMouseLeave={() => setHoveredLink(null)}
+                  >
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        if ((link.name === 'Alunos' || link.name === 'Professores') && !isLoggedIn) {
+                          e.preventDefault();
+                          setAuthMode('login');
+                          setIsAuthModalOpen(true);
+                        }
+                      }}
+                      className="relative px-3.5 py-1.5 transition-colors duration-200 hover:text-blue-600 z-10 flex items-center gap-2"
+                    >
+                      {hoveredLink === link.name && (
+                        <motion.span
+                          layoutId="nav-hover-pill"
+                          className="absolute inset-0 bg-blue-600/10 rounded-full -z-10"
+                          transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                        />
+                      )}
+                      <IconComponent className="h-4.5 w-4.5 text-slate-500 group-hover:text-blue-600 transition-colors" />
+                      <span>{link.name}</span>
+                    </a>
+                    {link.hasDropdown && hoveredLink === link.name && (
+                      <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-lg p-2 z-50">
+                        <a href="#sobre" className="flex items-center gap-2 px-4 py-2 text-sm text-slate-650 hover:bg-slate-50 hover:text-blue-600 rounded-lg">
+                          <Info className="h-4 w-4 text-slate-400" />
+                          <span>Sobre</span>
+                        </a>
+                        <a href="#info" className="flex items-center gap-2 px-4 py-2 text-sm text-slate-650 hover:bg-slate-50 hover:text-blue-600 rounded-lg">
+                          <HelpCircle className="h-4 w-4 text-slate-400" />
+                          <span>Informações</span>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
 
         {/* Right Authentication buttons */}
         <div className="flex items-center gap-3 sm:gap-4">
-          <motion.button 
-            whileHover={{ scale: 1.04, borderColor: 'rgb(249 115 22)', color: 'rgb(249 115 22)' }}
-            whileTap={{ scale: 0.98 }}
-            className="border border-slate-300 bg-white text-slate-700 font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full transition-all shadow-sm cursor-pointer"
-          >
-            Acessar conta
-          </motion.button>
-          <motion.button 
-            whileHover={{ scale: 1.04, backgroundColor: 'rgb(234 88 12)' }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-orange-500 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md shadow-orange-500/10 transition-all cursor-pointer border-none"
-          >
-            Criar conta
-          </motion.button>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-full border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-100 transition-colors">
+               <User className="h-4 w-4 text-blue-600" />
+               <span className="text-sm font-bold text-slate-700">{user?.name}</span>
+            </div>
+          ) : (
+            <>
+              <motion.button 
+                onClick={() => { setAuthMode('login'); setIsAuthModalOpen(true); }}
+                whileHover={{ scale: 1.04, borderColor: 'rgb(37 99 235)', color: 'rgb(37 99 235)' }}
+                whileTap={{ scale: 0.98 }}
+                className="border border-slate-300 bg-white text-slate-700 font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full transition-all shadow-sm cursor-pointer"
+              >
+                Acessar conta
+              </motion.button>
+              <motion.button 
+                onClick={() => { setAuthMode('register'); setIsAuthModalOpen(true); }}
+                whileHover={{ scale: 1.04, backgroundColor: 'rgb(29 78 216)' }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-blue-600 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-md shadow-blue-600/10 transition-all cursor-pointer border-none"
+              >
+                Criar conta
+              </motion.button>
+            </>
+          )}
           
           {/* Notification bell */}
           <motion.div 
@@ -260,8 +305,8 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
             className="relative p-2.5 bg-white hover:bg-slate-50 rounded-full border border-slate-200 shadow-sm cursor-pointer transition-all text-slate-555"
           >
             <Bell className="h-4.5 w-4.5" />
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-orange-500 rounded-full animate-ping" />
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-orange-500 rounded-full" />
+            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full animate-ping" />
+            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-blue-500 rounded-full" />
           </motion.div>
         </div>
       </nav>
@@ -389,30 +434,159 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
         </div>
       </div>
 
-      {/* Corporate Shortcuts / Features Grid Section (Itaú Style) */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-        <div className="mb-8">
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Resolva as questões do dia a dia</h2>
-          <p className="text-sm text-slate-500 mt-1 font-medium">Acesse atalhos rápidos e ferramentas de suporte ao estudo</p>
-        </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {quickResources.map((item, index) => (
-            <div
-              key={index}
-              className={`bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between min-h-[140px] cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 shadow-sm ${item.hoverColor}`}
-            >
-              <div className="p-2.5 bg-slate-100 rounded-xl w-fit">
-                <item.icon className="h-5 w-5" />
-              </div>
-              <div className="mt-4">
-                <h3 className="font-bold text-sm text-slate-850 leading-snug">{item.title}</h3>
-                <p className="text-xs text-slate-400 mt-1 font-medium leading-tight">{item.description}</p>
-              </div>
+      {/* Dynamic Intro Section: O que é o WebLearning */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div className="bg-gradient-to-r from-blue-600/5 via-indigo-600/5 to-blue-800/5 rounded-3xl border border-blue-100/50 p-6 md:p-8 shadow-sm relative overflow-hidden">
+          {/* Subtle background glow */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="grid md:grid-cols-3 gap-6 items-center relative z-10">
+            {/* Main Info Column */}
+            <div className="md:col-span-1 space-y-3">
+              <span className="text-[10px] uppercase font-extrabold tracking-wider text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full inline-block">
+                Sobre o Jogo
+              </span>
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight leading-tight">
+                O que é o <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">WebLearning</span>?
+              </h2>
+              <p className="text-slate-600 text-sm font-medium leading-relaxed">
+                Uma plataforma gamificada projetada para você dominar o desenvolvimento web na prática e de forma divertida.
+              </p>
             </div>
-          ))}
+
+            {/* Quick Cards Column */}
+            <div className="md:col-span-2 grid sm:grid-cols-2 gap-4">
+              <motion.div 
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group bg-white border border-slate-100 p-5 rounded-2xl shadow-sm hover:shadow-xl hover:bg-gradient-to-br hover:from-blue-600 hover:to-cyan-600 hover:border-blue-400 transition-all duration-300 cursor-pointer"
+              >
+                <div className="bg-blue-50 text-blue-600 p-2.5 rounded-xl w-fit mb-3 group-hover:bg-white/20 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+                  <Brain className="h-5 w-5" />
+                </div>
+                <h3 className="font-bold text-sm text-slate-800 group-hover:text-white transition-colors duration-300">Como funciona?</h3>
+                <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed group-hover:text-blue-50 transition-colors duration-300">
+                  Encare desafios interativos de HTML, CSS e JavaScript. Complete códigos, ordene tags e decifre seletores em tempo real.
+                </p>
+              </motion.div>
+
+              <motion.div 
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="group bg-white border border-slate-100 p-5 rounded-2xl shadow-sm hover:shadow-xl hover:bg-gradient-to-br hover:from-blue-600 hover:to-cyan-600 hover:border-blue-400 transition-all duration-300 cursor-pointer"
+              >
+                <div className="bg-emerald-50 text-emerald-600 p-2.5 rounded-xl w-fit mb-3 group-hover:bg-white/20 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                  <Zap className="h-5 w-5" />
+                </div>
+                <h3 className="font-bold text-sm text-slate-800 group-hover:text-white transition-colors duration-300">Para que serve?</h3>
+                <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed group-hover:text-blue-50 transition-colors duration-300">
+                  Para testar suas habilidades, fixar o conteúdo das aulas de forma leve e ver sua evolução no ranking.
+                </p>
+              </motion.div>
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* Corporate Shortcuts / Features Grid Section (Itaú Style) */}
+      <div className="w-full relative overflow-hidden py-16 my-8">
+        {/* Animated Gradient Background layer */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, amount: 0.15 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-850 -z-10"
+        />
+        
+        {/* Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: false, amount: 0.15 }}
+            transition={{ duration: 0.6, type: "spring" }}
+            className="bg-white rounded-[32px] border border-blue-100/50 p-8 sm:p-10 md:p-12 shadow-xl"
+          >
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10 border-b border-slate-100 pb-6">
+              <div>
+                {/* Visual badge/pill above title */}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-bold tracking-wider uppercase mb-3 border border-blue-100/50 w-fit">
+                  <Sparkles className="h-3 w-3 animate-pulse" />
+                  Atalhos Rápidos
+                </div>
+                
+                {/* Title with icon and infinite rotation animation */}
+                <div className="flex items-center gap-3">
+                  <motion.div 
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
+                    className="p-2.5 bg-blue-50 text-blue-600 rounded-xl shadow-sm border border-blue-100/30 flex items-center justify-center"
+                  >
+                    <Compass className="h-6 w-6" />
+                  </motion.div>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                    Resolva as questões do dia a dia
+                  </h2>
+                </div>
+                
+                {/* Subtitle */}
+                <p className="text-sm text-slate-550 mt-2 font-medium">
+                  Acesse atalhos rápidos e ferramentas de suporte ao estudo
+                </p>
+              </div>
+              
+              {/* Creative side accent or status indicator */}
+              <div className="flex items-center gap-2 text-[11px] text-blue-650 font-bold bg-blue-50/50 px-4 py-2 rounded-full border border-blue-100/20 w-fit self-start md:self-center">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>6 Ferramentas Disponíveis</span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {quickResources.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    whileHover={{ 
+                      y: -12, 
+                      scale: 1.03,
+                      boxShadow: "0 25px 40px -10px rgba(59, 130, 246, 0.22), 0 12px 20px -8px rgba(59, 130, 246, 0.08)"
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 350, damping: 15 }}
+                    className="group bg-slate-50/50 hover:bg-white border border-slate-100 hover:border-blue-400 rounded-[28px] p-6 sm:p-8 flex flex-col justify-between min-h-[190px] cursor-pointer transition-colors duration-300 relative overflow-hidden shadow-sm"
+                  >
+                    {/* Subtle hover gradient background glow in card corner */}
+                    <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/0 group-hover:bg-blue-500/10 rounded-full blur-2xl transition-all duration-500" />
+
+                    {/* Icon Container with glowing ring on hover */}
+                    <div className="p-4 bg-blue-50 text-blue-600 rounded-2xl w-fit border border-blue-100/30 group-hover:border-blue-200 relative transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white shadow-sm">
+                      {/* Ring animation on hover */}
+                      <div className="absolute inset-0 rounded-2xl bg-blue-500/0 group-hover:bg-blue-500/10 group-hover:scale-130 transition-all duration-500" />
+                      
+                      <IconComponent className="h-6 w-6 relative z-10 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
+                    </div>
+                    
+                    <div className="mt-6 relative z-10">
+                      <h3 className="font-extrabold text-base sm:text-lg text-slate-800 group-hover:text-blue-700 transition-colors duration-300 leading-snug">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-400 font-semibold mt-2 leading-relaxed transition-colors duration-300 group-hover:text-slate-500">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {/* Creative bottom highlight line that expands on hover */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </div>
 
       {/* Stats bar */}
       <div className="relative max-w-4xl mx-auto px-4 mb-20 mt-8 w-full">
@@ -547,11 +721,11 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
             {/* Column 1: Brand Info */}
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <div className="bg-gradient-to-r from-orange-500 to-rose-500 text-white p-1.5 rounded-full">
+                <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-1.5 rounded-full">
                   <Laptop className="h-4 w-4" />
                 </div>
                 <span className="font-extrabold text-slate-900 tracking-tight text-lg">
-                  Web<span className="text-orange-500">Learning</span>
+                  Web<span className="text-blue-600">Learning</span>
                 </span>
               </div>
               <p className="text-xs text-slate-500 leading-relaxed max-w-xs">
@@ -587,10 +761,10 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
             <div>
               <h4 className="font-bold text-sm text-slate-900 tracking-wide uppercase mb-4">Recursos</h4>
               <ul className="space-y-2.5 text-xs text-slate-550 font-medium">
-                <li><a href="#faq" className="hover:text-orange-500 transition-colors">Dúvidas Frequentes</a></li>
-                <li><a href="#cheatsheets" className="hover:text-orange-500 transition-colors">Cheat Sheets</a></li>
-                <li><a href="#discord" className="hover:text-orange-500 transition-colors">Comunidade Discord</a></li>
-                <li><a href="#jobs" className="hover:text-orange-500 transition-colors">Vagas Dev</a></li>
+                <li><a href="#faq" className="hover:text-blue-600 transition-colors">Dúvidas Frequentes</a></li>
+                <li><a href="#cheatsheets" className="hover:text-blue-600 transition-colors">Cheat Sheets</a></li>
+                <li><a href="#discord" className="hover:text-blue-600 transition-colors">Comunidade Discord</a></li>
+                <li><a href="#jobs" className="hover:text-blue-600 transition-colors">Vagas Dev</a></li>
               </ul>
             </div>
 
@@ -622,6 +796,15 @@ const HomePage: React.FC<HomePageProps> = ({ onGameSelect }) => {
         </div>
       </footer>
 
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+        initialMode={authMode}
+        onLogin={(userData) => {
+          setUser(userData);
+          // O usuário logou! Agora ele pode iniciar o jogo normalmente.
+        }}
+      />
     </div>
   );
 };

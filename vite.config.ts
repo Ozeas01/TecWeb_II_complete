@@ -19,7 +19,7 @@ export default defineConfig({
   server: {
     // Improves performance on WSL/cross-filesystem setups
     watch: {
-      usePolling: false,
+      usePolling: true,
     },
   },
 })

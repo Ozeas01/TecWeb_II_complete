@@ -28,3 +28,11 @@ export interface JSChallenge {
   explanation: string;
   difficulty: 'easy' | 'medium' | 'hard';
 }
+
+export type UserRole = 'aluno' | 'professor';
+
+export interface UserData {
+  name: string;
+  role: UserRole;
+  identifier: string; // Matrícula ou ID
+}

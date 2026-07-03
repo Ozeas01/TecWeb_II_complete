@@ -1,8 +1,8 @@
 # 🎮 Web Learning Games
 
-Uma plataforma de jogos educativos moderna e interativa para aprender HTML, CSS e JavaScript de forma divertida e envolvente.
+Uma plataforma de jogos educativos moderna e interativa para aprender HTML, CSS e JavaScript de forma divertida e envolvendo.
 
-![Web Learning Games](https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen) ![React](https://img.shields.io/badge/React-19.1.0-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.1-blue)
+![Web Learning Games](https://img.shields.io/badge/Status-Concluído-brightgreen) ![React](https://img.shields.io/badge/React-19.1.0-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.1-blue)
 
 ## 🌟 Características
 
@@ -244,4 +244,3 @@ Contribuições são bem-vindas! Por favor, leia o arquivo `CONTRIBUTING.md` par
 - ✅ **Feedback Visual** - Sistema completo de feedback
 - ✅ **Embaralhamento Inteligente** - Tags aleatórias por nível
 - ✅ **Layout Otimizado** - Sem necessidade de scroll excessivo
-
